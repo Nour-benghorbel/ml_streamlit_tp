@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 
 st.set_page_config(
     page_title="Application ML - Data",
-    page_icon="📂",
+    page_icon="",
     layout="wide",
     initial_sidebar_state="expanded"
 )
@@ -51,10 +51,10 @@ div[data-testid="stMetricValue"] {
 </style>
 """, unsafe_allow_html=True)
 
-st.sidebar.title("📌 Navigation")
+st.sidebar.title(" Navigation")
 st.sidebar.info("Page 1 : importation et exploration des données")
 
-st.title("📂 Upload et Exploration des Données")
+st.title(" Upload et Exploration des Données")
 st.markdown(
     '<div class="small-text">Charge un fichier CSV puis explore rapidement sa structure, ses statistiques et ses distributions.</div>',
     unsafe_allow_html=True
@@ -68,7 +68,7 @@ if uploaded_file is not None:
     df = pd.read_csv(uploaded_file)
     st.session_state["df"] = df
 
-    st.success("✅ Fichier chargé avec succès")
+    st.success(" Fichier chargé avec succès")
 
     total_missing = int(df.isnull().sum().sum())
     numeric_cols = df.select_dtypes(include=["number"]).columns
@@ -96,7 +96,7 @@ if uploaded_file is not None:
 
     with col_right:
         st.markdown('<div class="card">', unsafe_allow_html=True)
-        st.markdown('<div class="section-title">ℹ️ Informations générales</div>', unsafe_allow_html=True)
+        st.markdown('<div class="section-title"> Informations générales</div>', unsafe_allow_html=True)
         st.write(f"**Nombre de lignes :** {df.shape[0]}")
         st.write(f"**Nombre de colonnes :** {df.shape[1]}")
         st.write(f"**Colonnes catégorielles :** {len(categorical_cols)}")
@@ -108,7 +108,7 @@ if uploaded_file is not None:
 
     with col_a:
         st.markdown('<div class="card">', unsafe_allow_html=True)
-        st.markdown('<div class="section-title">🧾 Types des colonnes</div>', unsafe_allow_html=True)
+        st.markdown('<div class="section-title"> Types des colonnes</div>', unsafe_allow_html=True)
         dtypes_df = pd.DataFrame({
             "Colonne": df.columns,
             "Type": df.dtypes.astype(str).values
@@ -118,7 +118,7 @@ if uploaded_file is not None:
 
     with col_b:
         st.markdown('<div class="card">', unsafe_allow_html=True)
-        st.markdown('<div class="section-title">⚠️ Valeurs manquantes</div>', unsafe_allow_html=True)
+        st.markdown('<div class="section-title"> Valeurs manquantes</div>', unsafe_allow_html=True)
         missing_df = pd.DataFrame({
             "Colonne": df.columns,
             "Valeurs manquantes": df.isnull().sum().values
@@ -127,13 +127,13 @@ if uploaded_file is not None:
         st.markdown('</div>', unsafe_allow_html=True)
 
     st.markdown('<div class="card">', unsafe_allow_html=True)
-    st.markdown('<div class="section-title">📊 Statistiques descriptives</div>', unsafe_allow_html=True)
+    st.markdown('<div class="section-title"> Statistiques descriptives</div>', unsafe_allow_html=True)
     st.dataframe(df.describe(include="all"), use_container_width=True)
     st.markdown('</div>', unsafe_allow_html=True)
 
     if len(numeric_cols) > 0:
         st.markdown('<div class="card">', unsafe_allow_html=True)
-        st.markdown('<div class="section-title">📈 Visualisation d\'une variable numérique</div>', unsafe_allow_html=True)
+        st.markdown('<div class="section-title"> Visualisation d\'une variable numérique</div>', unsafe_allow_html=True)
 
         selected_col = st.selectbox("Choisir une colonne numérique", numeric_cols)
 
