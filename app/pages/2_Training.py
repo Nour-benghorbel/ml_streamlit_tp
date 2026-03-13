@@ -8,6 +8,10 @@ from sklearn.preprocessing import LabelEncoder
 from sklearn.metrics import accuracy_score, confusion_matrix, classification_report
 from sklearn.linear_model import LogisticRegression
 from sklearn.ensemble import RandomForestClassifier
+from auth import require_auth
+
+require_auth()
+
 
 st.set_page_config(
     page_title="Application ML - Training",

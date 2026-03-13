@@ -1,6 +1,9 @@
 import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
+from auth import require_auth
+
+require_auth()
 
 st.set_page_config(
     page_title="Application ML - Prediction",
