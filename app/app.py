@@ -1,4 +1,12 @@
 import streamlit as st
+import logging
+
+# ---------- LOGS ----------
+logging.basicConfig(
+    filename="app.log",
+    level=logging.INFO,
+    format="%(asctime)s - %(levelname)s - %(message)s"
+)
 
 st.set_page_config(
     page_title="Application ML Multi-Pages",
@@ -14,7 +22,8 @@ def check_login(username, password):
             username == st.secrets["auth"]["username"]
             and password == st.secrets["auth"]["password"]
         )
-    except Exception:
+    except Exception as e:
+        logging.error(f"Erreur lors de la lecture des secrets : {e}")
         return False
 
 if "authenticated" not in st.session_state:
@@ -30,19 +39,26 @@ def login():
         submitted = st.form_submit_button("Se connecter")
 
     if submitted:
+        logging.info(f"Tentative de connexion pour l'utilisateur : {username}")
+
         if check_login(username, password):
             st.session_state.authenticated = True
+            logging.info(f"Connexion réussie pour l'utilisateur : {username}")
             st.success("Connexion réussie")
             st.rerun()
         else:
+            logging.warning(f"Connexion échouée pour l'utilisateur : {username}")
             st.error("Identifiants incorrects")
 
 if not st.session_state.authenticated:
     login()
     st.stop()
 
+logging.info("Accès autorisé à l'application principale")
+
 # Bouton logout dans la sidebar
-if st.sidebar.button("🚪 Déconnexion"):
+if st.sidebar.button(" Déconnexion"):
+    logging.info("Déconnexion de l'utilisateur")
     st.session_state.authenticated = False
     st.rerun()
 
@@ -98,10 +114,10 @@ p, div, span {
 """, unsafe_allow_html=True)
 
 # ---------- APP ----------
-st.sidebar.title("📌 Navigation")
+st.sidebar.title(" Navigation")
 st.sidebar.success("Utilise le menu à gauche pour accéder aux pages.")
 
-st.title("🤖 Application Machine Learning Multi-Pages")
+st.title(" Application Machine Learning Multi-Pages")
 st.markdown(
     '<div class="small-text">Application complète pour charger un dataset, entraîner un modèle et réaliser des prédictions.</div>',
     unsafe_allow_html=True
@@ -114,7 +130,7 @@ col1, col2, col3 = st.columns(3)
 with col1:
     st.markdown("""
     <div class="card">
-        <h3>📂 Data</h3>
+        <h3> Data</h3>
         <p>Importe un fichier CSV, explore ses colonnes, visualise les statistiques et les distributions.</p>
     </div>
     """, unsafe_allow_html=True)
@@ -122,7 +138,7 @@ with col1:
 with col2:
     st.markdown("""
     <div class="card">
-        <h3>🧠 Training</h3>
+        <h3> Training</h3>
         <p>Choisis la variable cible, entraîne un modèle de classification et évalue ses performances.</p>
     </div>
     """, unsafe_allow_html=True)
@@ -130,7 +146,7 @@ with col2:
 with col3:
     st.markdown("""
     <div class="card">
-        <h3>🔮 Prediction</h3>
+        <h3> Prediction</h3>
         <p>Saisis de nouvelles valeurs d’entrée et obtiens une prédiction accompagnée des probabilités.</p>
     </div>
     """, unsafe_allow_html=True)
