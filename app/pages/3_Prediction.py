@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 
 st.set_page_config(
     page_title="Application ML - Prediction",
-    page_icon="🔮",
+    page_icon="",
     layout="wide",
     initial_sidebar_state="expanded"
 )
@@ -60,21 +60,21 @@ div.stButton > button {
 </style>
 """, unsafe_allow_html=True)
 
-st.sidebar.title("📌 Navigation")
+st.sidebar.title(" Navigation")
 st.sidebar.info("Page 3 : saisie des données et prédiction")
 
-st.title("🔮 Interface de Prédiction")
+st.title(" Interface de Prédiction")
 st.markdown(
     '<div class="small-text">Renseigne les variables d’entrée pour obtenir une prédiction du modèle entraîné.</div>',
     unsafe_allow_html=True
 )
 
 if "model" not in st.session_state:
-    st.warning("⚠️ Veuillez d'abord entraîner un modèle dans la page Training.")
+    st.warning(" Veuillez d'abord entraîner un modèle dans la page Training.")
     st.stop()
 
 if "df" not in st.session_state:
-    st.warning("⚠️ Veuillez d'abord charger les données dans la page Data.")
+    st.warning(" Veuillez d'abord charger les données dans la page Data.")
     st.stop()
 
 df = st.session_state["df"].copy()
@@ -86,7 +86,7 @@ label_encoder = st.session_state["label_encoder"]
 feature_df = df.drop(columns=[target_col])
 
 st.markdown('<div class="card">', unsafe_allow_html=True)
-st.markdown('<div class="section-title">📝 Saisir les valeurs</div>', unsafe_allow_html=True)
+st.markdown('<div class="section-title"> Saisir les valeurs</div>', unsafe_allow_html=True)
 
 input_data = {}
 cols = st.columns(2)
@@ -110,7 +110,7 @@ for i, col in enumerate(feature_df.columns):
 
 st.markdown('</div>', unsafe_allow_html=True)
 
-if st.button("✨ Prédire"):
+if st.button(" Prédire"):
     input_df = pd.DataFrame([input_data])
 
     input_encoded = pd.get_dummies(input_df)
@@ -140,13 +140,13 @@ if st.button("✨ Prédire"):
 
         with col1:
             st.markdown('<div class="card">', unsafe_allow_html=True)
-            st.markdown('<div class="section-title">📊 Probabilités par classe</div>', unsafe_allow_html=True)
+            st.markdown('<div class="section-title">Probabilités par classe</div>', unsafe_allow_html=True)
             st.dataframe(prob_df, use_container_width=True)
             st.markdown('</div>', unsafe_allow_html=True)
 
         with col2:
             st.markdown('<div class="card">', unsafe_allow_html=True)
-            st.markdown('<div class="section-title">📈 Visualisation des probabilités</div>', unsafe_allow_html=True)
+            st.markdown('<div class="section-title"> Visualisation des probabilités</div>', unsafe_allow_html=True)
 
             fig, ax = plt.subplots(figsize=(7, 4.5))
             ax.bar(prob_df["Classe"], prob_df["Probabilité"])

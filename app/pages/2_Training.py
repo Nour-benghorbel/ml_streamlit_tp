@@ -11,7 +11,7 @@ from sklearn.ensemble import RandomForestClassifier
 
 st.set_page_config(
     page_title="Application ML - Training",
-    page_icon="🧠",
+    page_icon="",
     layout="wide",
     initial_sidebar_state="expanded"
 )
@@ -58,17 +58,17 @@ div[data-testid="stMetricValue"] {
 </style>
 """, unsafe_allow_html=True)
 
-st.sidebar.title("📌 Navigation")
+st.sidebar.title(" Navigation")
 st.sidebar.info("Page 2 : entraînement et évaluation du modèle")
 
-st.title("🧠 Entraînement du Modèle")
+st.title(" Entraînement du Modèle")
 st.markdown(
     '<div class="small-text">Choisis la variable cible, sélectionne un modèle et visualise ses performances.</div>',
     unsafe_allow_html=True
 )
 
 if "df" not in st.session_state:
-    st.warning("⚠️ Veuillez d'abord charger un dataset dans la page Data.")
+    st.warning(" Veuillez d'abord charger un dataset dans la page Data.")
     st.stop()
 
 df = st.session_state["df"].copy()
@@ -77,7 +77,7 @@ col1, col2 = st.columns([1.1, 1])
 
 with col1:
     st.markdown('<div class="card">', unsafe_allow_html=True)
-    st.markdown('<div class="section-title">⚙️ Configuration</div>', unsafe_allow_html=True)
+    st.markdown('<div class="section-title"> Configuration</div>', unsafe_allow_html=True)
 
     target_col = st.selectbox("Choisir la colonne cible (target)", df.columns)
 
@@ -90,11 +90,11 @@ with col1:
 
 with col2:
     st.markdown('<div class="card">', unsafe_allow_html=True)
-    st.markdown('<div class="section-title">👀 Aperçu du dataset</div>', unsafe_allow_html=True)
+    st.markdown('<div class="section-title"> Aperçu du dataset</div>', unsafe_allow_html=True)
     st.dataframe(df.head(8), use_container_width=True)
     st.markdown('</div>', unsafe_allow_html=True)
 
-if st.button("🚀 Entraîner le modèle"):
+if st.button("Entraîner le modèle"):
     df = df.dropna()
 
     X = df.drop(columns=[target_col])
@@ -188,13 +188,13 @@ if st.button("🚀 Entraîner le modèle"):
 
     with col_right:
         st.markdown('<div class="card">', unsafe_allow_html=True)
-        st.markdown('<div class="section-title">📋 Classification Report</div>', unsafe_allow_html=True)
+        st.markdown('<div class="section-title"> Classification Report</div>', unsafe_allow_html=True)
         report_df = pd.DataFrame(report).transpose()
         st.dataframe(report_df, use_container_width=True)
         st.markdown('</div>', unsafe_allow_html=True)
 
     st.markdown('<div class="card">', unsafe_allow_html=True)
-    st.markdown('<div class="section-title">🎯 Matrice de confusion</div>', unsafe_allow_html=True)
+    st.markdown('<div class="section-title"> Matrice de confusion</div>', unsafe_allow_html=True)
 
     fig, ax = plt.subplots(figsize=(6, 5))
     cax = ax.matshow(cm)
@@ -212,7 +212,7 @@ if st.button("🚀 Entraîner le modèle"):
 
     if model_name == "Random Forest":
         st.markdown('<div class="card">', unsafe_allow_html=True)
-        st.markdown('<div class="section-title">🌲 Importance des variables</div>', unsafe_allow_html=True)
+        st.markdown('<div class="section-title"> Importance des variables</div>', unsafe_allow_html=True)
 
         importances = pd.DataFrame({
             "Feature": X.columns,
